@@ -17,13 +17,13 @@
 
         #landing-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #0b1120; z-index: 2000; padding: 20px; text-align: center; }
         #landing-screen h1 { font-size: 3.5rem; margin-bottom: 5px; color: #22d3ee; font-weight: 700; letter-spacing: -1px; }
-        #landing-screen p { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; max-width: 400px; line-height: 1.5;}
-        .btn-start { background: #10b981; color: white; font-size: 1.2rem; padding: 18px 40px; border-radius: 50px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); margin-bottom: 20px; }
+        #landing-screen p { color: #94a3b8; margin-bottom: 30px; font-size: 1.1rem; max-width: 400px; line-height: 1.5;}
+        .btn-start { background: #10b981; color: white; font-size: 1.2rem; padding: 18px 45px; border-radius: 50px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); margin-bottom: 20px; }
 
         #ad-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 32, 0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
         .ad-box { width: 300px; min-height: 250px; background: transparent; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-bottom: 30px; overflow: hidden;}
         
-        .loader { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+        .loader { display: flex; gap: 8px; align-items: center; margin-bottom: 15px; }
         .circle { width: 15px; height: 15px; background: #22d3ee; border-radius: 50%; animation: pulse 1.5s infinite ease-in-out; }
         .circle:nth-child(2) { animation-delay: 0.3s; }
         .circle:nth-child(3) { animation-delay: 0.6s; }
@@ -32,7 +32,7 @@
         #ad-screen h3 { color: #f8fafc; font-weight: 600; font-size: 1.2rem; }
 
         #chat-wrapper { display: none; flex-direction: column; height: 100vh; }
-        .header { background: #161e31; padding: 8px 18px; display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid #2d3a54; }
+        .header { background: #161e31; padding: 10px 18px; border-bottom: 1px solid #2d3a54; }
         .header-top { display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 5px; }
         .header-logo { color: #22d3ee; font-weight: 700; font-size: 1.1rem; }
         
@@ -54,9 +54,9 @@
         input { flex: 1; padding: 14px; border: none; border-radius: 12px; background: #0b1120; color: white; outline: none; }
         .btn-send { background: #06b6d4; color: #0b1120; }
         
-        /* Containers for Banners */
-        .banner-top { margin-bottom: 5px; min-height: 60px; }
-        .banner-bottom { display: flex; justify-content: center; padding: 5px 0; min-height: 50px; }
+        /* مظهر البانرات */
+        .banner-top { display: flex; justify-content: center; min-height: 60px; overflow: hidden; margin-top: 5px; }
+        .banner-bottom { display: flex; justify-content: center; padding: 5px 0; min-height: 50px; overflow: hidden; }
     </style>
 </head>
 <body>
@@ -91,8 +91,8 @@
                 <div class="header-logo">AnonChat</div>
                 <div id="online-users">🟢 Online: 1</div>
                 <div class="header-right">
-                    <button class="btn-clear" onclick="clearData()" style="padding: 5px 10px;">Clear</button>
-                    <button class="btn-next" onclick="nextPerson()" style="padding: 5px 10px;">Skip</button>
+                    <button class="btn-clear" onclick="clearData()">Clear</button>
+                    <button class="btn-next" onclick="nextPerson()">Skip</button>
                 </div>
             </div>
             <div class="banner-top">
@@ -131,21 +131,14 @@
         const typingIndicator = document.getElementById('typing-indicator');
         const onlineUsersDisplay = document.getElementById('online-users');
 
-        // 6. Direct Link
-        const ADS_DIRECT_LINK = "https://www.profitablecpmratenetwork.com/cya98exqi?key=066240729aa8a69cf552537a5c4364e6";
-
-        function openAd() {
-            window.open(ADS_DIRECT_LINK, '_blank');
-        }
-
         function startApp() {
-            openAd(); 
+            // تم إلغاء الـ Direct Link لراحة المستخدم
             landingScreen.style.display = 'none';
             showSearchWithAd();
         }
 
         function nextPerson() {
-            if(Math.random() > 0.4) openAd(); // تظهر بنسبة 60% لزيادة الربح
+            // تم إلغاء الـ Direct Link لراحة المستخدم
             socket.emit('skip');
             chatBox.innerHTML = '';
             showSearchWithAd();
@@ -158,12 +151,14 @@
                 adScreen.style.display = 'none';
                 chatWrapper.style.display = 'flex';
                 socket.emit('find_partner');
-            }, 4000); 
+            }, 3500); // 3.5 ثوانٍ وقت كافٍ لظهور إعلان البحث
         }
 
         const popSound = new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg');
         if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+        
         socket.on('online_count', (count) => onlineUsersDisplay.innerText = `🟢 Online: ${count}`);
+        
         function addMessage(text, type) {
             const div = document.createElement('div');
             div.className = 'msg ' + type;
@@ -172,13 +167,18 @@
             chatBox.scrollTop = chatBox.scrollHeight;
             return div;
         }
+
         socket.on('chat_start', (text) => { chatBox.innerHTML = ''; addMessage(text, 'system'); popSound.play().catch(()=>{}); });
         socket.on('receive_message', (msg) => { typingIndicator.style.display = 'none'; addMessage(msg, 'other'); popSound.play().catch(()=>{}); socket.emit('seen'); });
         socket.on('partner_seen', () => { if (lastMyMsg) { const s = lastMyMsg.querySelector('.status'); if (s) s.innerText = '✓✓'; } });
         socket.on('partner_left', () => addMessage('Stranger disconnected.', 'system'));
+        
+        let typingTimer;
         msgInput.addEventListener('input', () => { socket.emit('typing'); clearTimeout(typingTimer); typingTimer = setTimeout(() => socket.emit('stop_typing'), 1000); });
         socket.on('partner_typing', () => { typingIndicator.style.display = 'block'; chatBox.scrollTop = chatBox.scrollHeight; });
         socket.on('partner_stop_typing', () => typingIndicator.style.display = 'none');
+        
+        let lastMyMsg = null;
         function sendMessage() {
             const msg = msgInput.value.trim();
             if (msg) {
