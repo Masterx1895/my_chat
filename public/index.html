@@ -6,6 +6,9 @@
     <title>AnonChat Pro</title>
     <link rel="manifest" href="/manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://pl28956374.profitablecpmratenetwork.com/1d/16/23/1d162303ef3a115f54416513bfd9e189.js"></script>
+
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #0b1120; color: #f8fafc; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -14,8 +17,8 @@
 
         #landing-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #0b1120; z-index: 2000; padding: 20px; text-align: center; }
         #landing-screen h1 { font-size: 3.5rem; margin-bottom: 5px; color: #22d3ee; font-weight: 700; letter-spacing: -1px; }
-        #landing-screen p { color: #94a3b8; margin-bottom: 40px; font-size: 1.1rem; max-width: 400px; line-height: 1.5;}
-        .btn-start { background: #10b981; color: white; font-size: 1.2rem; padding: 18px 40px; border-radius: 50px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); margin-bottom: 30px; }
+        #landing-screen p { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; max-width: 400px; line-height: 1.5;}
+        .btn-start { background: #10b981; color: white; font-size: 1.2rem; padding: 18px 40px; border-radius: 50px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); margin-bottom: 20px; }
 
         #ad-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 32, 0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
         .ad-box { width: 300px; min-height: 250px; background: transparent; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-bottom: 30px; overflow: hidden;}
@@ -29,24 +32,31 @@
         #ad-screen h3 { color: #f8fafc; font-weight: 600; font-size: 1.2rem; }
 
         #chat-wrapper { display: none; flex-direction: column; height: 100vh; }
-        .header { background: #161e31; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d3a54; }
+        .header { background: #161e31; padding: 8px 18px; display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid #2d3a54; }
+        .header-top { display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 5px; }
         .header-logo { color: #22d3ee; font-weight: 700; font-size: 1.1rem; }
+        
         .btn-next { background: #ef4444; color: white; }
         .btn-clear { background: #475569; color: white; }
         #online-users { color: #10b981; font-size: 0.8em; font-weight: 700; }
 
-        #chat-box { flex: 1; padding: 25px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+        #chat-box { flex: 1; padding: 15px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
         .msg { padding: 12px 16px; border-radius: 18px; max-width: 75%; word-wrap: break-word; line-height: 1.5; font-size: 0.95em; position: relative; }
         .msg.me { background: #06b6d4; align-self: flex-end; color: #0b1120; border-bottom-right-radius: 4px; font-weight: 500; }
         .msg.other { background: #2d3a54; align-self: flex-start; color: #f1f5f9; border-bottom-left-radius: 4px; }
         .msg.system { background: transparent; color: #64748b; text-align: center; align-self: center; font-size: 0.85em; }
         
         .status { font-size: 0.75em; margin-left: 10px; color: #0b1120; opacity: 0.7; font-weight: bold; }
-        #typing-indicator { display: none; align-self: flex-start; color: #94a3b8; font-size: 0.85em; font-style: italic; padding: 0 10px; margin-top: -10px; margin-bottom: 8px; }
+        #typing-indicator { display: none; align-self: flex-start; color: #94a3b8; font-size: 0.85em; font-style: italic; padding: 0 10px; margin-top: -5px; margin-bottom: 5px; }
 
-        .input-area { display: flex; padding: 18px; background: #161e31; border-top: 1px solid #2d3a54; gap: 12px; }
+        .input-area-wrapper { background: #161e31; border-top: 1px solid #2d3a54; padding-bottom: 10px; }
+        .input-area { display: flex; padding: 15px; gap: 12px; }
         input { flex: 1; padding: 14px; border: none; border-radius: 12px; background: #0b1120; color: white; outline: none; }
         .btn-send { background: #06b6d4; color: #0b1120; }
+        
+        /* Containers for Banners */
+        .banner-top { margin-bottom: 5px; min-height: 60px; }
+        .banner-bottom { display: flex; justify-content: center; padding: 5px 0; min-height: 50px; }
     </style>
 </head>
 <body>
@@ -56,7 +66,7 @@
         <p>Talk to strangers instantly. No logs. No trace. Completely ephemeral.</p>
         <button class="btn-start" onclick="startApp()">Start Chatting Now</button>
         
-        <div style="margin-top: 20px; min-height: 100px;">
+        <div style="margin-top: 10px; min-height: 100px; width: 100%; max-width: 320px;">
             <script async="async" data-cfasync="false" src="https://pl28959272.profitablecpmratenetwork.com/d3a75cdd3bc48e5f517b536728a2dc75/invoke.js"></script>
             <div id="container-d3a75cdd3bc48e5f517b536728a2dc75"></div>
         </div>
@@ -65,13 +75,7 @@
     <div id="ad-screen">
         <div class="ad-box">
             <script type="text/javascript">
-                atOptions = {
-                    'key' : 'd923f0f562bb1553b763f435469f318d',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                };
+                atOptions = { 'key' : 'd923f0f562bb1553b763f435469f318d', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
             </script>
             <script type="text/javascript" src="https://www.highperformanceformat.com/d923f0f562bb1553b763f435469f318d/invoke.js"></script>
         </div>
@@ -83,18 +87,36 @@
 
     <div id="chat-wrapper">
         <div class="header">
-            <div class="header-logo">AnonChat</div>
-            <div id="online-users">🟢 Online: 1</div>
-            <div class="header-right">
-                <button class="btn-clear" onclick="clearData()">Clear</button>
-                <button class="btn-next" onclick="nextPerson()">Skip >></button>
+            <div class="header-top">
+                <div class="header-logo">AnonChat</div>
+                <div id="online-users">🟢 Online: 1</div>
+                <div class="header-right">
+                    <button class="btn-clear" onclick="clearData()" style="padding: 5px 10px;">Clear</button>
+                    <button class="btn-next" onclick="nextPerson()" style="padding: 5px 10px;">Skip</button>
+                </div>
+            </div>
+            <div class="banner-top">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '62bc5635c7fdb49e50b71faf64fb3224', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/62bc5635c7fdb49e50b71faf64fb3224/invoke.js"></script>
             </div>
         </div>
+
         <div id="chat-box"></div>
         <div id="typing-indicator">Stranger is typing...</div>
-        <div class="input-area">
-            <input type="text" id="msg-input" placeholder="Say hello..." onkeypress="handleEnter(event)">
-            <button class="btn-send" onclick="sendMessage()">Send</button>
+
+        <div class="input-area-wrapper">
+            <div class="banner-bottom">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '618488a3305e31ad59f3a12b0ff2769f', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/618488a3305e31ad59f3a12b0ff2769f/invoke.js"></script>
+            </div>
+            <div class="input-area">
+                <input type="text" id="msg-input" placeholder="Say hello..." onkeypress="handleEnter(event)">
+                <button class="btn-send" onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 
@@ -109,25 +131,21 @@
         const typingIndicator = document.getElementById('typing-indicator');
         const onlineUsersDisplay = document.getElementById('online-users');
 
-        // استبدل هذا الرابط برابط الـ Direct Link الخاص بك من Adsterra
-        const ADS_DIRECT_LINK = "حط_رابط_الـ_Direct_Link_هنا";
+        // 6. Direct Link
+        const ADS_DIRECT_LINK = "https://www.profitablecpmratenetwork.com/cya98exqi?key=066240729aa8a69cf552537a5c4364e6";
 
         function openAd() {
-            if (ADS_DIRECT_LINK !== "حط_رابط_الـ_Direct_Link_هنا") {
-                window.open(ADS_DIRECT_LINK, '_blank');
-            }
+            window.open(ADS_DIRECT_LINK, '_blank');
         }
 
         function startApp() {
-            openAd(); // يفتح إعلان عند البداية
+            openAd(); 
             landingScreen.style.display = 'none';
             showSearchWithAd();
         }
 
         function nextPerson() {
-            // يفتح إعلان بنسبة 50% عند الضغط على سكيب لزيادة الربح دون إزعاج مفرط
-            if(Math.random() > 0.5) openAd(); 
-            
+            if(Math.random() > 0.4) openAd(); // تظهر بنسبة 60% لزيادة الربح
             socket.emit('skip');
             chatBox.innerHTML = '';
             showSearchWithAd();
@@ -143,7 +161,6 @@
             }, 4000); 
         }
 
-        // --- باقي وظائف الشات الأساسية ---
         const popSound = new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg');
         if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
         socket.on('online_count', (count) => onlineUsersDisplay.innerText = `🟢 Online: ${count}`);
@@ -155,7 +172,6 @@
             chatBox.scrollTop = chatBox.scrollHeight;
             return div;
         }
-        socket.on('waiting', (text) => addMessage(text, 'system'));
         socket.on('chat_start', (text) => { chatBox.innerHTML = ''; addMessage(text, 'system'); popSound.play().catch(()=>{}); });
         socket.on('receive_message', (msg) => { typingIndicator.style.display = 'none'; addMessage(msg, 'other'); popSound.play().catch(()=>{}); socket.emit('seen'); });
         socket.on('partner_seen', () => { if (lastMyMsg) { const s = lastMyMsg.querySelector('.status'); if (s) s.innerText = '✓✓'; } });
