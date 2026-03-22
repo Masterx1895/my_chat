@@ -12,10 +12,10 @@
         button { padding: 10px 18px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.2s ease; font-size: 0.9em; }
         button:active { transform: scale(0.97); }
 
-        #landing-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #0b1120; z-index: 2000; padding: 20px; }
+        #landing-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #0b1120; z-index: 2000; padding: 20px; text-align: center; }
         #landing-screen h1 { font-size: 3.5rem; margin-bottom: 5px; color: #22d3ee; font-weight: 700; letter-spacing: -1px; }
-        #landing-screen p { color: #94a3b8; margin-bottom: 40px; font-size: 1.1rem; text-align: center; max-width: 400px; line-height: 1.5;}
-        .btn-start { background: #10b981; color: white; font-size: 1.1rem; padding: 16px 35px; border-radius: 50px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-bottom: 30px; }
+        #landing-screen p { color: #94a3b8; margin-bottom: 40px; font-size: 1.1rem; max-width: 400px; line-height: 1.5;}
+        .btn-start { background: #10b981; color: white; font-size: 1.2rem; padding: 18px 40px; border-radius: 50px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); margin-bottom: 30px; }
 
         #ad-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 32, 0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
         .ad-box { width: 300px; min-height: 250px; background: transparent; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-bottom: 30px; overflow: hidden;}
@@ -47,19 +47,16 @@
         .input-area { display: flex; padding: 18px; background: #161e31; border-top: 1px solid #2d3a54; gap: 12px; }
         input { flex: 1; padding: 14px; border: none; border-radius: 12px; background: #0b1120; color: white; outline: none; }
         .btn-send { background: #06b6d4; color: #0b1120; }
-
-        /* حاوية إعلان شاشة البداية */
-        .landing-ad { margin-top: 20px; width: 100%; max-width: 320px; min-height: 100px; }
     </style>
 </head>
 <body>
 
     <div id="landing-screen">
         <h1>AnonChat</h1>
-        <p>Talk to strangers instantly. No logs. No trace.</p>
+        <p>Talk to strangers instantly. No logs. No trace. Completely ephemeral.</p>
         <button class="btn-start" onclick="startApp()">Start Chatting Now</button>
         
-        <div class="landing-ad">
+        <div style="margin-top: 20px; min-height: 100px;">
             <script async="async" data-cfasync="false" src="https://pl28959272.profitablecpmratenetwork.com/d3a75cdd3bc48e5f517b536728a2dc75/invoke.js"></script>
             <div id="container-d3a75cdd3bc48e5f517b536728a2dc75"></div>
         </div>
@@ -112,20 +109,27 @@
         const typingIndicator = document.getElementById('typing-indicator');
         const onlineUsersDisplay = document.getElementById('online-users');
 
-        let typingTimer;
-        let lastMyMsg = null;
-        const popSound = new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg');
+        // استبدل هذا الرابط برابط الـ Direct Link الخاص بك من Adsterra
+        const ADS_DIRECT_LINK = "حط_رابط_الـ_Direct_Link_هنا";
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js');
+        function openAd() {
+            if (ADS_DIRECT_LINK !== "حط_رابط_الـ_Direct_Link_هنا") {
+                window.open(ADS_DIRECT_LINK, '_blank');
+            }
         }
 
-        socket.on('online_count', (count) => {
-            onlineUsersDisplay.innerText = `🟢 Online: ${count}`;
-        });
-
         function startApp() {
+            openAd(); // يفتح إعلان عند البداية
             landingScreen.style.display = 'none';
+            showSearchWithAd();
+        }
+
+        function nextPerson() {
+            // يفتح إعلان بنسبة 50% عند الضغط على سكيب لزيادة الربح دون إزعاج مفرط
+            if(Math.random() > 0.5) openAd(); 
+            
+            socket.emit('skip');
+            chatBox.innerHTML = '';
             showSearchWithAd();
         }
 
@@ -136,9 +140,13 @@
                 adScreen.style.display = 'none';
                 chatWrapper.style.display = 'flex';
                 socket.emit('find_partner');
-            }, 4000); // زدتها لـ 4 ثواني عشان الإعلان يلحق يحمل ويربحك
+            }, 4000); 
         }
 
+        // --- باقي وظائف الشات الأساسية ---
+        const popSound = new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg');
+        if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+        socket.on('online_count', (count) => onlineUsersDisplay.innerText = `🟢 Online: ${count}`);
         function addMessage(text, type) {
             const div = document.createElement('div');
             div.className = 'msg ' + type;
@@ -147,17 +155,14 @@
             chatBox.scrollTop = chatBox.scrollHeight;
             return div;
         }
-
         socket.on('waiting', (text) => addMessage(text, 'system'));
         socket.on('chat_start', (text) => { chatBox.innerHTML = ''; addMessage(text, 'system'); popSound.play().catch(()=>{}); });
         socket.on('receive_message', (msg) => { typingIndicator.style.display = 'none'; addMessage(msg, 'other'); popSound.play().catch(()=>{}); socket.emit('seen'); });
         socket.on('partner_seen', () => { if (lastMyMsg) { const s = lastMyMsg.querySelector('.status'); if (s) s.innerText = '✓✓'; } });
         socket.on('partner_left', () => addMessage('Stranger disconnected.', 'system'));
-
         msgInput.addEventListener('input', () => { socket.emit('typing'); clearTimeout(typingTimer); typingTimer = setTimeout(() => socket.emit('stop_typing'), 1000); });
         socket.on('partner_typing', () => { typingIndicator.style.display = 'block'; chatBox.scrollTop = chatBox.scrollHeight; });
         socket.on('partner_stop_typing', () => typingIndicator.style.display = 'none');
-
         function sendMessage() {
             const msg = msgInput.value.trim();
             if (msg) {
@@ -169,7 +174,6 @@
             }
         }
         function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
-        function nextPerson() { socket.emit('skip'); chatBox.innerHTML = ''; showSearchWithAd(); }
         function clearData() { localStorage.clear(); location.reload(); }
     </script>
 </body>
