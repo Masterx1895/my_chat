@@ -21,7 +21,7 @@
 
         /* شاشة البحث والإعلان المتحركة السحرية */
         #ad-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 32, 0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
-        .ad-box { width: 300px; height: 250px; background: #cbd5e1; color: #0b1120; display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: bold; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .ad-box { width: 300px; min-height: 250px; background: #cbd5e1; color: #0b1120; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;}
         
         /* كود الأنيميشن للبحث */
         .loader { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
@@ -45,20 +45,15 @@
 
         #chat-box { flex: 1; padding: 25px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
         
-        /* تصميم الرسائل الجديد (مهم جداً) */
+        /* تصميم الرسائل */
         .msg { padding: 12px 16px; border-radius: 18px; max-width: 75%; word-wrap: break-word; line-height: 1.5; font-size: 0.95em; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
-        /* رسالتي: تباين عالي ولون فاتح للقراءة ✓✓ */
         .msg.me { background: #06b6d4; align-self: flex-end; color: #0b1120; border-bottom-right-radius: 4px; font-weight: 500; }
-        
-        /* رسالة المقابل: لون داكن احترافي */
         .msg.other { background: #2d3a54; align-self: flex-start; color: #f1f5f9; border-bottom-left-radius: 4px; }
-        
         .msg.system { background: transparent; color: #64748b; text-align: center; align-self: center; font-size: 0.85em; box-shadow: none; font-weight: 500;}
         
-        /* علامة ✓✓ بلون داكن على خلفية فاتحة */
+        /* علامة ✓✓ */
         .status { font-size: 0.75em; margin-left: 10px; color: #0b1120; opacity: 0.7; font-weight: bold; position: relative; top: 1px; }
-        .status.seen { color: #0b1120; opacity: 1; } /* تبقى داكنة لكن تزيد شفافيتها */
+        .status.seen { color: #0b1120; opacity: 1; } 
         
         #typing-indicator { display: none; align-self: flex-start; color: #94a3b8; font-size: 0.85em; font-style: italic; padding: 0 10px; margin-top: -10px; margin-bottom: 8px; }
 
@@ -79,7 +74,9 @@
     </div>
 
     <div id="ad-screen">
-        <div class="ad-box">Ad Space (Revenue)</div>
+        <div class="ad-box">
+            <script src="https://pl28956374.profitablecpmratenetwork.com/1d/16/23/1d162303ef3a115f54416513bfd9e189.js"></script>
+        </div>
         <div class="loader">
             <div class="circle"></div>
             <div class="circle"></div>
@@ -147,7 +144,7 @@
                 adScreen.style.display = 'none';
                 chatWrapper.style.display = 'flex';
                 socket.emit('find_partner');
-            }, 3000); // 3 seconds for ad and animation
+            }, 3000); 
         }
 
         function addMessage(text, type) {
